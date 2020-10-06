@@ -5,6 +5,8 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import com.github.rubensousa.gravitysnaphelper.GravityPagerSnapHelper;
@@ -19,12 +21,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 
-public class SnapAdapter extends RecyclerView.Adapter<SnapAdapter.ViewHolder> implements GravitySnapHelper.SnapListener{
+public class SnapAdapter extends RecyclerView.Adapter<SnapAdapter.ViewHolder> implements GravitySnapHelper.SnapListener {
 
-    public static final int VERTICAL   = 0;     // value indicator for vertical   scrolling
-    public static final int HORIZONTAL = 1;     // value indicator for horizontal scrolling
+    private static final int VERTICAL   = 0;     // value indicator for vertical   scrolling
+    private static final int HORIZONTAL = 1;     // value indicator for horizontal scrolling
 
     private ArrayList<Snap> snaps;
+    private ArrayList<Snap> snapsFull;
+
 
     public SnapAdapter(){
         snaps = new ArrayList<>();

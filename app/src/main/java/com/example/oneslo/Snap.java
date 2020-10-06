@@ -1,15 +1,13 @@
 package com.example.oneslo;
-
-
 import java.util.ArrayList;
 
 public class Snap {
     private boolean padding;
     private int gravity;
     private String text;
-    private ArrayList<CardView> apps;
+    private ArrayList<Gig> apps;
 
-    public Snap(int gravity, String text, boolean padding, ArrayList<CardView> apps) {
+    public Snap(int gravity, String text, boolean padding, ArrayList<Gig> apps) {
         this.gravity = gravity;
         this.text = text;
         this.padding = padding;
@@ -24,7 +22,7 @@ public class Snap {
         return text;
     }
 
-    public ArrayList<CardView> getApps() {
+    public ArrayList<Gig> getApps() {
         return apps;
     }
 

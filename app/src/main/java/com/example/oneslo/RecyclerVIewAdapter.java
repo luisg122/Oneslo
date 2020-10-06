@@ -4,7 +4,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
 import android.content.Context;
-import android.nfc.Tag;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,17 +18,17 @@ import java.util.ArrayList;
 
 public class RecyclerVIewAdapter extends RecyclerView.Adapter<RecyclerVIewAdapter.ViewHolder>{
 
-    private ArrayList<CardView> mApps;
+    private ArrayList<Gig> mApps;
     private boolean mHorizontal;
     private boolean mPager;
     private Context mContext;
 
-    public RecyclerVIewAdapter(boolean horizontal, boolean pager, ArrayList<CardView> apps){
+    public RecyclerVIewAdapter(boolean horizontal, boolean pager, ArrayList<Gig> apps){
         mHorizontal = horizontal;
         mPager = pager;
         mApps  = apps;
     }
-    // =========================================================================================
+    // ================================================================================================================
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int i) {
         if(mPager) {
@@ -43,14 +42,14 @@ public class RecyclerVIewAdapter extends RecyclerView.Adapter<RecyclerVIewAdapte
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, final int position) {
-        CardView app = mApps.get(position);
+        Gig app = mApps.get(position);
         viewHolder.name.setText(app.getmName());
 
         // Using the Glide library to compress file size of image
         mContext = viewHolder.image.getContext();
         Glide.with(mContext)
                 .asBitmap()
-                .load(app.getmDrawable())
+                .load("https://images.squarespace-cdn.com/content/v1/52a0da60e4b0dfa4e47795de/1535498535340-PVPKE7556TCT3PE81QS1/ke17ZwdGBToddI8pDm48kHJjM-Evnp5g-1kf5Yv15cUUqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYxCRW4BPu10St3TBAUQYVKcpWKe3KzaCrFDKPR1a1Ob8xobjReaxMuaKtrvUDoDmPO9EsdBHei1w8jR6w0UZiby/Errigal%2C-autumn-hues-X2.jpg")
                 .into(viewHolder.image);
 
         viewHolder.image.setOnClickListener(new View.OnClickListener(){

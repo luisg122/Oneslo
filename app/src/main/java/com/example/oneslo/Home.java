@@ -20,12 +20,13 @@ import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
 
 import java.util.ArrayList;
 
-public class Home extends Fragment{
+public class Home extends Fragment {
 
     public static final String ORIENTATION = "orientation";
     private RecyclerView mRecyclerView;
     private boolean mHorizontal;
     private Toolbar toolbar;
+    private SnapAdapter snapAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState){
         View view = inflater.inflate(R.layout.home_activity, container, false);
@@ -38,9 +39,7 @@ public class Home extends Fragment{
         }
 
         setUpAdapter();
-
         setHasOptionsMenu(true);
-
         return view;
     }
     @Override
@@ -50,12 +49,11 @@ public class Home extends Fragment{
 
     // Menu icons are inflated just as they were with actionbar
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater){
         // Inflate the menu; this adds items to the action bar if it is present
-        //getActivity().getMenuInflater().inflate(R.menu.menu_main, menu);
+        // getActivity().getMenuInflater().inflate(R.menu.menu_main, menu);
         inflater.inflate(R.menu.menu_main, menu);
         super.onCreateOptionsMenu(menu, inflater);
-
     }
 
     @Override
@@ -64,21 +62,26 @@ public class Home extends Fragment{
         outState.putBoolean(ORIENTATION, mHorizontal);
     }
 
+    private void initRecyclerView(View view){
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity());
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
+        mRecyclerView.setLayoutManager(layoutManager);
+        mRecyclerView.setHasFixedSize(true);
+        mRecyclerView.setItemViewCacheSize(20);
+        mRecyclerView.setDrawingCacheEnabled(true);
+        mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
+    }
+
     private void setUpAdapter(){
-        ArrayList<CardView> apps  = getApps();
-        ArrayList<CardView> apps1 = getApps1();
-        SnapAdapter snapAdapter   = new SnapAdapter();
+        ArrayList<Gig> apps  = getApps();
+        ArrayList<Gig> apps1 = getApps1();
+        snapAdapter  = new SnapAdapter();
         if(mHorizontal){
             snapAdapter.addSnap(new Snap(Gravity.START, "Technology", false, getApps()));
             snapAdapter.addSnap(new Snap(Gravity.START, "Business", false, getApps1()));
             snapAdapter.addSnap(new Snap(Gravity.START, "Education and Tutoring", false, getApps2()));
-            snapAdapter.addSnap(new Snap(Gravity.START, "Legal", false, getApps3()));
             snapAdapter.addSnap(new Snap(Gravity.START, "Entertainment and Media", false, getApps4()));
-            snapAdapter.addSnap(new Snap(Gravity.START, "Food and Beverage", false, getApps5()));
             snapAdapter.addSnap(new Snap(Gravity.START, "Fashion and Beauty", false, getApps6()));
-            snapAdapter.addSnap(new Snap(Gravity.START, "Medical and Health", false, getApps7()));
-            snapAdapter.addSnap(new Snap(Gravity.START, "Engineering and Construction", false, getApps8()));
-            snapAdapter.addSnap(new Snap(Gravity.START, "Hospitality", false, getApps9()));
             mRecyclerView.setAdapter(snapAdapter);
         }
         else{
@@ -93,152 +96,74 @@ public class Home extends Fragment{
         }
     }
 
-    private ArrayList<CardView> getApps(){
-        ArrayList<CardView> apps = new ArrayList<>();
-        apps.add(new CardView("Data Science", R.drawable.datascience));
-        apps.add(new CardView("Web Development", R.drawable.webdevelopment));
-        apps.add(new CardView("App Development", R.drawable.appdevelopment));
-        apps.add(new CardView("Hardware Setup", R.drawable.hardwaresetup));
-        apps.add(new CardView("DevOps", R.drawable.devops));
-        apps.add(new CardView("Database Design", R.drawable.databse));
-        apps.add(new CardView("Information Technology", R.drawable.it));
-        apps.add(new CardView("Networking", R.drawable.networking));
-        apps.add(new CardView("Graphic Design", R.drawable.design));
+    private ArrayList<Gig> getApps(){
+        ArrayList<Gig> apps = new ArrayList<>();
+        apps.add(new Gig("Data Science", " "));
+        apps.add(new Gig("Web Development", " "));
+        apps.add(new Gig("App Development", " "));
+        apps.add(new Gig("Hardware Setup", " "));
+        apps.add(new Gig("DevOps", " "));
+        apps.add(new Gig("Database Design", " "));
+        apps.add(new Gig("Information Technology", " "));
+        apps.add(new Gig("Networking", " "));
+        apps.add(new Gig("Graphic Design", " "));
         return apps;
     }
 
-    private ArrayList<CardView> getApps1(){
-        ArrayList<CardView> apps = new ArrayList<>();
-        apps.add(new CardView("Accounting", R.drawable.accounting));
-        apps.add(new CardView("Business Intelligence", R.drawable.businessintel));
-        apps.add(new CardView("Marketing", R.drawable.advertising));
-        apps.add(new CardView("Consulting",  R.drawable.consulting));
-        apps.add(new CardView("Actuary", R.drawable.actuary));
-        apps.add(new CardView("Finance", R.drawable.finance));
-        apps.add(new CardView("Human Resources", R.drawable.humanrec));
-        apps.add(new CardView("Entrepreneurship",  R.drawable.entrepren));
-        apps.add(new CardView("Real Estate", R.drawable.realestate));
-        apps.add(new CardView("Sales", R.drawable.sales));
+    private ArrayList<Gig> getApps1(){
+        ArrayList<Gig> apps = new ArrayList<>();
+        apps.add(new Gig("Accounting", " "));
+        apps.add(new Gig("Business Intelligence", " "));
+        apps.add(new Gig("Marketing", " "));
+        apps.add(new Gig("Consulting",  " "));
+        apps.add(new Gig("Actuary", " "));
+        apps.add(new Gig("Finance", " "));
+        apps.add(new Gig("Human Resources", " "));
+        apps.add(new Gig("Entrepreneurship",  " "));
+        apps.add(new Gig("Real Estate", " "));
+        apps.add(new Gig("Sales", " "));
         return apps;
     }
 
-    private ArrayList<CardView> getApps2(){
-        ArrayList<CardView> apps = new ArrayList<>();
-        apps.add(new CardView("Mathematics", R.drawable.math));
-        apps.add(new CardView("Writing", R.drawable.writinged));
-        apps.add(new CardView("Science",  R.drawable.science));
-        apps.add(new CardView("Medical Education", R.drawable.medical));
-        apps.add(new CardView("Technology Education", R.drawable.teched));
-        apps.add(new CardView("Law Education", R.drawable.lawed));
-        apps.add(new CardView("Business Education", R.drawable.businessed));
-        apps.add(new CardView("Language Education",  R.drawable.lawed));
-        apps.add(new CardView("Standardized Testing", R.drawable.standardized));
+    private ArrayList<Gig> getApps2(){
+        ArrayList<Gig> apps = new ArrayList<>();
+        apps.add(new Gig("Mathematics", " "));
+        apps.add(new Gig("Writing", " "));
+        apps.add(new Gig("Science",  " "));
+        apps.add(new Gig("Medical Education", " "));
+        apps.add(new Gig("Technology Education", " "));
+        apps.add(new Gig("Law Education", " "));
+        apps.add(new Gig("Business Education", " "));
+        apps.add(new Gig("Language Education",  " "));
+        apps.add(new Gig("Standardized Testing", " "));
         return apps;
     }
 
-    private ArrayList<CardView> getApps3(){
-        ArrayList<CardView> apps = new ArrayList<>();
-        apps.add(new CardView("Lawyer", R.drawable.lawyer));
-        apps.add(new CardView("Paralegal", R.drawable.paralegal));
-        apps.add(new CardView("Legal Consulting",  R.drawable.legalconsult));
-        apps.add(new CardView("Electronic Discovery", R.drawable.ediscov));
-        apps.add(new CardView("Mediator", R.drawable.legalmediator));
-        apps.add(new CardView("Court Reporting", R.drawable.courtrep));
-        apps.add(new CardView("Legal Researcher", R.drawable.legalres));
-        apps.add(new CardView("Legal Secretary",  R.drawable.legalsecretary));
-        apps.add(new CardView("Legal Translators", R.drawable.legaltrans));
+    private ArrayList<Gig> getApps4(){
+        ArrayList<Gig> apps = new ArrayList<>();
+        apps.add(new Gig("Journalism", " "));
+        apps.add(new Gig("Dancing", " "));
+        apps.add(new Gig("Acting", " "));
+        apps.add(new Gig("Music"," "));
+        apps.add(new Gig("Art", " "));
+        apps.add(new Gig("Photography"," "));
+        apps.add(new Gig("Film", " "));
+        apps.add(new Gig("Social Media",  " "));
+        apps.add(new Gig("Blogging", " "));
         return apps;
     }
 
-    private ArrayList<CardView> getApps4(){
-        ArrayList<CardView> apps = new ArrayList<>();
-        apps.add(new CardView("Journalism", R.drawable.journalism));
-        apps.add(new CardView("Dancing", R.drawable.dancing));
-        apps.add(new CardView("Acting",  R.drawable.acting));
-        apps.add(new CardView("Music", R.drawable.music));
-        apps.add(new CardView("Art", R.drawable.art));
-        apps.add(new CardView("Photography", R.drawable.photography));
-        apps.add(new CardView("Film", R.drawable.film));
-        apps.add(new CardView("Social Media",  R.drawable.socialmedia));
-        apps.add(new CardView("Blogging", R.drawable.blogging));
+    private ArrayList<Gig> getApps6(){
+        ArrayList<Gig> apps = new ArrayList<>();
+        apps.add(new Gig("Modeling", " "));
+        apps.add(new Gig("Cosmetology", " "));
+        apps.add(new Gig("Fashion Designer", " "));
+        apps.add(new Gig("Fashion writing",  " "));
+        apps.add(new Gig("Fashion Photography", " "));
+        apps.add(new Gig("Fashion Illustrator", " "));
+        apps.add(new Gig("Fashion Stylist", " "));
+        apps.add(new Gig("Seamstress", " "));
+        apps.add(new Gig("Tailor", " "));
         return apps;
-    }
-
-    private ArrayList<CardView> getApps5(){
-        ArrayList<CardView> apps = new ArrayList<>();
-        apps.add(new CardView("Catering", R.drawable.catering));
-        apps.add(new CardView("Nutritionist", R.drawable.nutrionist));
-        apps.add(new CardView("Food Writing",  R.drawable.foodwriting));
-        apps.add(new CardView("Food Photography", R.drawable.foodphoto));
-        apps.add(new CardView("Urban Farmer", R.drawable.urbanfarm));
-        apps.add(new CardView("Chefs", R.drawable.chef));
-        apps.add(new CardView("Cooks", R.drawable.cooks));
-        apps.add(new CardView("Dietitian", R.drawable.dietician));
-        return apps;
-    }
-
-    private ArrayList<CardView> getApps6(){
-        ArrayList<CardView> apps = new ArrayList<>();
-        apps.add(new CardView("Modeling", R.drawable.modeling));
-        apps.add(new CardView("Cosmetology", R.drawable.cosmet));
-        apps.add(new CardView("Fashion Designer", R.drawable.fashiondes));
-        apps.add(new CardView("Fashion writing",  R.drawable.fashionwrite));
-        apps.add(new CardView("Fashion Photography", R.drawable.fashionphoto));
-        apps.add(new CardView("Fashion Illustrator", R.drawable.fashionillu));
-        apps.add(new CardView("Fashion Stylist", R.drawable.fashionstyle));
-        apps.add(new CardView("Seamstress", R.drawable.seamstress));
-        apps.add(new CardView("Tailor", R.drawable.tailor));
-        return apps;
-    }
-
-    private ArrayList<CardView> getApps7(){
-        ArrayList<CardView> apps = new ArrayList<>();
-        apps.add(new CardView("Medical Interpreter", R.drawable.medicalinter));
-        apps.add(new CardView("Medical Writing", R.drawable.medicalwrite));
-        apps.add(new CardView("Fitness Training", R.drawable.fitness));
-        apps.add(new CardView("Medical Consulting",  R.drawable.medicalconsult));
-        apps.add(new CardView("Physician", R.drawable.physician));
-        apps.add(new CardView("Nurse", R.drawable.nurse));
-        apps.add(new CardView("Medical Administration", R.drawable.medicaladmin));
-        apps.add(new CardView("Transcription", R.drawable.transcription));
-        apps.add(new CardView("Therapy", R.drawable.therapy));
-        return apps;
-    }
-
-    private ArrayList<CardView> getApps8(){
-        ArrayList<CardView> apps = new ArrayList<>();
-        apps.add(new CardView("Construction Labor", R.drawable.constructionlabor));
-        apps.add(new CardView("Electrician", R.drawable.electrician));
-        apps.add(new CardView("Plumbing", R.drawable.plumbing));
-        apps.add(new CardView("Mechanic",  R.drawable.mechanic));
-        apps.add(new CardView("Architect", R.drawable.architect));
-        apps.add(new CardView("Engineering", R.drawable.engineering));
-        apps.add(new CardView("Welding", R.drawable.welding));
-        apps.add(new CardView("Masonry", R.drawable.masonry));
-        apps.add(new CardView("Carpenter", R.drawable.carpenter));
-        apps.add(new CardView("Installation", R.drawable.installation));
-        return apps;
-    }
-
-    private ArrayList<CardView> getApps9(){
-        ArrayList<CardView> apps = new ArrayList<>();
-        apps.add(new CardView("Event Planning", R.drawable.eventplan));
-        //apps.add(new CardView("Wedding Services", R.drawable.wedding));
-        apps.add(new CardView("Tourism", R.drawable.tourist));
-        //apps.add(new CardView("Restaurant Services",  R.drawable.restaurantser));
-        apps.add(new CardView("Cleaning Services", R.drawable.cleaning));
-        apps.add(new CardView("Dog Walking", R.drawable.dogwalking));
-        apps.add(new CardView("Babysitting", R.drawable.babysitting));
-        apps.add(new CardView("Translation Services", R.drawable.translation));
-        return apps;
-    }
-    private void initRecyclerView(View view){
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this.getActivity());
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerView);
-        mRecyclerView.setLayoutManager(layoutManager);
-        mRecyclerView.setHasFixedSize(true);
-        mRecyclerView.setItemViewCacheSize(20);
-        mRecyclerView.setDrawingCacheEnabled(true);
-        mRecyclerView.setDrawingCacheQuality(View.DRAWING_CACHE_QUALITY_HIGH);
     }
 }

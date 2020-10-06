@@ -42,6 +42,7 @@ public class DrawerNav extends AppCompatActivity {
         drawerToggle = new ActionBarDrawerToggle(this, mDrawer, toolbar,
                 R.string.navigation_drawer_open, R.string.navigation_drawer_close);
 
+        drawerToggle.getDrawerArrowDrawable().setColor(getResources().getColor(R.color.white));
         mDrawer.addDrawerListener(drawerToggle);
         drawerToggle.syncState();
 
@@ -126,5 +127,4 @@ public class DrawerNav extends AppCompatActivity {
         // Close the navigation drawer
         mDrawer.closeDrawers();
     }
-
 }
