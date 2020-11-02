@@ -2,7 +2,7 @@
 Oneslo is an android mobile application, which intends to provide a platform for freelancers to connect with other freelancers, allowing them to exchange services from a variety of industries. Any user can either freelance their services or hire other freelancers. Freelancing jobs may be done either remotely, or depending on the area, may also be done locally. Oneslo is still under development.
 
 
-### Portrait View of Oneslo 
+### Portrait View of Oneslo (Design Only)
 <img src="onesloVidDemo.gif" width=250><br>
 
 
