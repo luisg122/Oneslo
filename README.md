@@ -3,7 +3,7 @@ Oneslo is an android mobile application, which intends to provide a platform for
 
 
 ### Portrait View of Oneslo 
-<img src="oneslo.gif" width=250><br>
+<img src="onesloVidDemo.gif" width=250><br>
 
 
 ### Open-source libraries used
